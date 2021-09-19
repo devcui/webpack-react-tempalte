@@ -4,6 +4,7 @@ const common = require("./webpack.common")
 const {ROOT_PATH, SERVER_HOST, SERVER_PORT} = require("./consts")
 
 module.exports = merge(common, {
+    target:"web",
     mode: 'development',
     devtool: 'cheap-module-source-map',
     output: {

@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    // basic
+    "target": "ES5",
+    "module": "ESNext",
+    "lib": [
+      "DOM.Iterable",
+      "DOM",
+      "ESNext"
+    ],
+    "allowJs": true,
+    "jsx": "react",
+    "isolatedModules": true,
+    "strict": true,
+    // module
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "src/*": [
+        "src/*"
+      ],
+      "components/*": [
+        "src/components/*"
+      ],
+      "utils/*": [
+        "src/utils/*"
+      ]
+    },
+    // magic
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    // other
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
