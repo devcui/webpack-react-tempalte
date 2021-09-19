@@ -41,12 +41,12 @@ const getCssLoaders = () => {
 }
 
 module.exports = {
-    cache: {
-        type: "filesystem",
-        buildDependencies: {
-            config: [__filename]
-        }
-    },
+    // cache: {
+    //     type: "filesystem",
+    //     buildDependencies: {
+    //         config: [__filename]
+    //     }
+    // },
     resolve: {
         alias: {
             "src": path.resolve(ROOT_PATH, './src'),
