@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --config ./scripts/webpack.dev.js",
-    "build": "rm -rf ./dist && cross-env NODE_ENV=production webpack --config ./scripts/webpack.prod.js"
+    "build": "cross-env NODE_ENV=production webpack --config ./scripts/webpack.prod.js"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +31,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/webpack-env": "^1.16.2",
     "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^9.0.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.3.0",

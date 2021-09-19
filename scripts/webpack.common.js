@@ -6,6 +6,8 @@ const {isDevelopment, isProduction} = require("./env");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
 const CopyPlugin = require("copy-webpack-plugin")
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const getCssLoaders = () => {
     const cssLoaders = [];
@@ -39,6 +41,12 @@ const getCssLoaders = () => {
 }
 
 module.exports = {
+    cache: {
+        type: "filesystem",
+        buildDependencies: {
+            config: [__filename]
+        }
+    },
     resolve: {
         alias: {
             "src": path.resolve(ROOT_PATH, './src'),
@@ -49,6 +57,14 @@ module.exports = {
     },
     entry: {
         app: path.resolve(ROOT_PATH, './src/index.tsx')
+    },
+    optimization: {
+        minimize: false,
+        minimizer: [],
+        splitChunks: {
+            chunks: 'all',
+            minSize: 0
+        }
     },
     module: {
         rules: [
@@ -70,6 +86,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new ForkTsCheckerWebpackPlugin({
             typescript: {
                 configFile: path.resolve(ROOT_PATH, "./tsconfig.json")
@@ -81,7 +98,7 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [{
-                context: path.resolve(ROOT_PATH,'./public'),
+                context: path.resolve(ROOT_PATH, './public'),
                 from: "*",
                 to: path.resolve(ROOT_PATH, './dist/public'),
                 toType: 'dir',
@@ -91,6 +108,6 @@ module.exports = {
                     ignore: ['**/index.html']
                 }
             }]
-        })
+        }),
     ]
 }

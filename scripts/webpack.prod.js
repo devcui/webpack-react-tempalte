@@ -13,7 +13,7 @@ module.exports = merge(common, {
     output: {
         path: path.resolve(ROOT_PATH, "./dist"),
         filename: "js/[name].[contenthash:8].js",
-        assetModuleFilename:'images/[name].[contenthash:8].[ext]'
+        assetModuleFilename: 'images/[name].[contenthash:8].[ext]'
     },
     optimization: {
         minimize: true,
@@ -25,7 +25,11 @@ module.exports = merge(common, {
                     compress: {pure_funcs: ['console.log']}
                 }
             })
-        ]
+        ],
+        splitChunks: {
+            chunks: 'all',
+            minSize: 0
+        }
     },
     plugins: [
         new MiniCssExtractPlugin({
