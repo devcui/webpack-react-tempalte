@@ -12,7 +12,8 @@ module.exports = merge(common, {
     devtool: 'cheap-module-source-map',
     output: {
         path: path.resolve(ROOT_PATH, "./dist"),
-        filename: "js/[name].[contenthash:8].js"
+        filename: "js/[name].[contenthash:8].js",
+        assetModuleFilename:'images/[name].[contenthash:8].[ext]'
     },
     optimization: {
         minimize: true,

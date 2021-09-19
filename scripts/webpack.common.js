@@ -5,6 +5,7 @@ const {ROOT_PATH} = require('./consts')
 const {isDevelopment, isProduction} = require("./env");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
+const CopyPlugin = require("copy-webpack-plugin")
 
 const getCssLoaders = () => {
     const cssLoaders = [];
@@ -54,18 +55,42 @@ module.exports = {
             {test: /\.css$/, use: [...getCssLoaders()]},
             {test: /\.less$/, use: [...getCssLoaders(), {loader: 'less-loader', options: {sourceMap: isDevelopment}}]},
             {test: /\.scss$/, use: [...getCssLoaders(), {loader: 'sass-loader', options: {sourceMap: isDevelopment}}]},
-            {test: /\.(tsx?|js)$/, loader: "babel-loader", options: {cacheDirectory: true}, exclude: /node_modules/}
+            {test: /\.(tsx?|js)$/, loader: "babel-loader", options: {cacheDirectory: true}, exclude: /node_modules/},
+            {
+                test: [/\.bmp$/, /.gif\$/, /\.jpe?g$/, /\.png$/],
+                type: "asset",
+                parser: {
+                    dataUrlCondition: {maxSize: 4 * 1024}
+                }
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2?)$/,
+                type: 'asset/resource'
+            }
         ]
     },
     plugins: [
         new ForkTsCheckerWebpackPlugin({
-            typescript:{
-                configFile:path.resolve(ROOT_PATH,"./tsconfig.json")
+            typescript: {
+                configFile: path.resolve(ROOT_PATH, "./tsconfig.json")
             }
         }),
         new WebpackBar({name: "loading...", color: '#52c41a'}),
         new HtmlWebpackPlugin({
             template: path.resolve(ROOT_PATH, './public/index.html')
+        }),
+        new CopyPlugin({
+            patterns: [{
+                context: path.resolve(ROOT_PATH,'./public'),
+                from: "*",
+                to: path.resolve(ROOT_PATH, './dist/public'),
+                toType: 'dir',
+                globOptions: {
+                    dot: true,
+                    gitignore: true,
+                    ignore: ['**/index.html']
+                }
+            }]
         })
     ]
 }
